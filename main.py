@@ -3,16 +3,28 @@ from BFS import BFS
 from DFS import DFS
 from AStar import AStar
 from AStarNode import AStarNode
-puzzle = [[1,2,3,7],
-                    [8,4,5,6],
-                    [9,10,11,15],
-                    [0,12,13,14]]
-root = Node(puzzle, 0,'')
-aStarRoot = AStarNode(puzzle,0,'')
+import pandas as pd
+
+#tutaj trzeba wczytać plik , najlepiej chyba pandas
+def readFile() :
+    rows = pd.read_csv("Puzzles\puzzle", nrows = 1, header=None, delimiter=' ')[0]
+    cols = pd.read_csv("Puzzles\puzzle", nrows=1, header=None, delimiter=' ')[1]
+    array = [rows,cols]
+    return array
+
+array = readFile()
+print(array)
+puzzle = [[0,1,2,3],
+                    [5,6,7,4],
+                    [9,10,11,8],
+                    [13,14,15,12]]
+root = Node(puzzle, 0,'',4,4)
+metric = 'Manhattan'
+aStarRoot = AStarNode(puzzle,0,'',metric,4,4)
 bfsPuzzleSolver = BFS()
 dfsPuzzleSolver = DFS()
 aStarPuzzleSolver = AStar()
 #bfsPuzzleSolver.solve(root)
-dfsPuzzleSolver.solve(root)
-#aStarPuzzleSolver.solve(aStarRoot)
+#dfsPuzzleSolver.solve(root)
+aStarPuzzleSolver.solve(aStarRoot, metric)
 

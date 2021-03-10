@@ -8,7 +8,6 @@ class BFS :
         while len(nodes) != 0 and isSolved == False:
             node = nodes.pop(0)
             checkedStates = checkedStates + 1
-            print(node.puzzle)
             if node.isSolved():
                 isSolved = True
                 solution = node
@@ -28,5 +27,6 @@ class BFS :
             print(solution.puzzle)
             print(solution.solution)
             print("Odwiedzone stany: ", checkedStates)
+            print(solution.depth)
         else :
             print("Nie udalo sie znalezc rozwiazania")

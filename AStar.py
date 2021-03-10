@@ -1,21 +1,14 @@
 class AStar :
-    def solve(self,root):
+    def solve(self,root,metric):
         nodes = []
         checkedStates = 0
         solution = None
         isSolved = False
         nodes.append(root)
         while len(nodes) != 0 and isSolved == False:
-            minDistance = nodes[0].manhattanDistance + nodes[0].depth
-            node = nodes[0]
-            for aStarNode in nodes :
-                print (aStarNode.manhattanDistance)
-                if (aStarNode.manhattanDistance + aStarNode.depth) < minDistance:
-                    minDistance = aStarNode.manhattanDistance + aStarNode.depth
-                    node = aStarNode
-                checkedStates = checkedStates + 1
-            nodes.clear()
-            print('wybrano',node.manhattanDistance)
+            nodes.sort(key=self.getTotalDistance)
+            node = nodes.pop(0)
+            checkedStates += 1
             if node.isSolved():
                 isSolved = True
                 solution = node
@@ -35,5 +28,9 @@ class AStar :
             print(solution.puzzle)
             print(solution.solution)
             print("Odwiedzone stany: ", checkedStates)
+            print("Głębokość rozwiazania: ", solution.depth)
         else :
             print("Nie udalo sie znalezc rozwiazania")
+
+    def getTotalDistance(self, node):
+        return node.totalDistance
