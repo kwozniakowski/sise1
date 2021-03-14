@@ -1,5 +1,7 @@
 MAX_DEPTH = 30
 class DFS :
+    moves = 0
+
     def solve(self,root):
         nodes = []
         checkedStates = 0

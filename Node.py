@@ -21,8 +21,8 @@ class Node :
     def isSolved(self):
         solved = True
         n = self.puzzle[0][0]
-        for row in self.puzzle :
-            for number in row :
+        for row in self.puzzle:
+            for number in row:
                 if not number >= n:
                     solved = False
                 n = number
