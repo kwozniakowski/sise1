@@ -1,4 +1,4 @@
-MAX_DEPTH = 30
+MAX_DEPTH = 20
 class DFS :
     moves = 0
 
@@ -11,7 +11,6 @@ class DFS :
         while len(nodes) != 0 and isSolved == False:
             node = nodes.pop(-1) #bierzemy zawsze ostatni dodany element
             checkedStates = checkedStates + 1
-            print(node.puzzle)
             if node.depth < MAX_DEPTH:
                 if node.isSolved():
                     isSolved = True
