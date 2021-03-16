@@ -1,6 +1,8 @@
 MAX_DEPTH = 20
 class DFS :
-    def solve(self,root):
+    moves = 0
+
+    def solve(self,root,order):
         nodes = []
         checkedStates = 0
         solution = None
@@ -13,18 +15,24 @@ class DFS :
                 if node.isSolved():
                     isSolved = True
                     solution = node
-                if node.canMoveLeft():
-                    newNode = node.moveLeft()
-                    nodes.append(newNode)
-                if node.canMoveRight():
-                    newNode = node.moveRight()
-                    nodes.append(newNode)
-                if node.canMoveUp():
-                    newNode = node.moveUp()
-                    nodes.append(newNode)
-                if node.canMoveDown():
-                    newNode = node.moveDown()
-                    nodes.append(newNode)
+                for i in range(0, 4):
+                    direction = order[i]
+                    if direction == 'L':
+                        if node.canMoveLeft():
+                            newNode = node.moveLeft()
+                            nodes.append(newNode)
+                    if direction == 'R':
+                        if node.canMoveRight():
+                            newNode = node.moveRight()
+                            nodes.append(newNode)
+                    if direction == 'U':
+                        if node.canMoveUp():
+                            newNode = node.moveUp()
+                            nodes.append(newNode)
+                    if direction == 'D':
+                        if node.canMoveDown():
+                            newNode = node.moveDown()
+                            nodes.append(newNode)
         if isSolved :
             print(solution.puzzle)
             print(solution.solution)
