@@ -1,4 +1,4 @@
-MAX_DEPTH = 20
+MAX_DEPTH = 9
 class DFS :
     moves = 0
 
@@ -11,10 +11,10 @@ class DFS :
         while len(nodes) != 0 and isSolved == False:
             node = nodes.pop(-1) #bierzemy zawsze ostatni dodany element
             checkedStates = checkedStates + 1
+            if node.isSolved():
+                isSolved = True
+                solution = node
             if node.depth < MAX_DEPTH:
-                if node.isSolved():
-                    isSolved = True
-                    solution = node
                 for i in range(0, 4):
                     direction = order[i]
                     if direction == 'L':
@@ -36,6 +36,7 @@ class DFS :
         if isSolved :
             print(solution.puzzle)
             print(solution.solution)
+            print(len(solution.solution)) # dlugosc rozwiazania
             print("Odwiedzone stany: ", checkedStates)
         else :
             print("Nie udalo sie znalezc rozwiazania")
