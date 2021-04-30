@@ -8,31 +8,42 @@ class BFS:
         nodes.append(root)
         while len(nodes) != 0 and not isSolved:
             node = nodes.pop(0)
-            # if puzzle_tuple not in explored:
-            checkedStates = checkedStates + 1
             if node.isSolved():
                 isSolved = True
                 solution = node
             for i in range(4):
                 direction = order[i]
-                # puzzle_tuple = self.generate_tuple_from_puzzle(node.puzzle)
                 if direction == 'L':
                     if node.canMoveLeft():
                         newNode = node.moveLeft()
-                        nodes.append(newNode)
-                if direction == 'R':
+                        puzzle_tuple = self.generate_tuple_from_puzzle(newNode.puzzle)
+                        if puzzle_tuple not in explored:
+                            nodes.append(newNode)
+                            explored.add(puzzle_tuple)
+
+                elif direction == 'R':
                     if node.canMoveRight():
                         newNode = node.moveRight()
-                        nodes.append(newNode)
-                if direction == 'U':
+                        puzzle_tuple = self.generate_tuple_from_puzzle(newNode.puzzle)
+                        if puzzle_tuple not in explored:
+                            nodes.append(newNode)
+                        explored.add(puzzle_tuple)
+
+                elif direction == 'U':
                     if node.canMoveUp():
                         newNode = node.moveUp()
-                        nodes.append(newNode)
-                if direction == 'D':
+                        puzzle_tuple = self.generate_tuple_from_puzzle(newNode.puzzle)
+                        if puzzle_tuple not in explored:
+                            nodes.append(newNode)
+                            explored.add(puzzle_tuple)
+
+                else:
                     if node.canMoveDown():
                         newNode = node.moveDown()
-                        nodes.append(newNode)
-                # explored.add(puzzle_tuple)
+                        puzzle_tuple = self.generate_tuple_from_puzzle(newNode.puzzle)
+                        if puzzle_tuple not in explored:
+                            nodes.append(newNode)
+                            explored.add(puzzle_tuple)
         if isSolved:
             print(solution.puzzle)
             print(solution.solution)

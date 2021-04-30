@@ -22,7 +22,7 @@ cols = data[1]
 rows = data[2]
 
 puzzle = array
-order = 'LDRU'
+order = 'LRUD'
 
 metric = 'Manhattan'
 root = Node(puzzle, 0,'',cols,rows)
