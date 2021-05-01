@@ -8,9 +8,6 @@ class BFS:
         nodes.append(root)
         while len(nodes) != 0 and not isSolved:
             node = nodes.pop(0)
-            if node.isSolved():
-                isSolved = True
-                solution = node
             for i in range(4):
                 direction = order[i]
                 if direction == 'L':
@@ -44,11 +41,15 @@ class BFS:
                         if puzzle_tuple not in explored:
                             nodes.append(newNode)
                             explored.add(puzzle_tuple)
+                if nodes[-1].isSolved():
+                    isSolved = True
+                    solution = nodes[-1]
+
         if isSolved:
             print(solution.puzzle)
             print(solution.solution)
             print("Przetworzone stany: ", checkedStates)
-            print("Odwiedzone stany: ", checkedStates + len(nodes))
+            print("Odwiedzone stany: ", checkedStates + len(nodes)) #TODO: tutaj zmienić, żeby odpowiednio wyświetlało wartości
             print(solution.depth)
         else:
             print("Nie udalo sie znalezc rozwiazania")
