@@ -42,24 +42,32 @@ if __name__ == '__main__':
     if strategy == 'bfs':
         order = additional_argument
         root = Node(puzzle, 0, '', cols, rows)
-        bfsPuzzleSolver = BFS()
-        bfsPuzzleSolver.solve(root, order)
+        bfs_puzzle_solver = BFS()
+        bfs_puzzle_solver.solve(root, order)
         end = time.time()
 
-        is_solved = bfsPuzzleSolver.is_solved
-        solution_string = bfsPuzzleSolver.solution.solution
+        is_solved = bfs_puzzle_solver.is_solved
+        solution_string = bfs_puzzle_solver.solution.solution
         solution_length = len(solution_string)
-        visited_states_number = bfsPuzzleSolver.visited_states
-        processed_states_number = bfsPuzzleSolver.processed_states
-        max_recursion_depth = bfsPuzzleSolver.max_reached_depth
-        elapsed_time = round(1000 * (end - start), 3) #TODO: Powielić dla DFS i AStar
+        visited_states_number = bfs_puzzle_solver.visited_states
+        processed_states_number = bfs_puzzle_solver.processed_states
+        max_recursion_depth = bfs_puzzle_solver.max_reached_depth
+        elapsed_time = '{:.3f}'.format(round(1000 * (end - start), 3)) #TODO: Powielić dla AStar
 
     elif strategy == 'dfs':
         root = Node(puzzle, 0, '', cols, rows)
         order = additional_argument
-        dfsPuzzleSolver = DFS(20)
-        dfsPuzzleSolver.solve(root, order)
+        dfs_puzzle_solver = DFS(20)
+        dfs_puzzle_solver.solve(root, order)
         end = time.time()
+
+        is_solved = dfs_puzzle_solver.is_solved
+        solution_string = dfs_puzzle_solver.solution.solution
+        solution_length = len(solution_string)
+        visited_states_number = dfs_puzzle_solver.visited_states #TODO: Dodać taki atrybut do DFS
+        processed_states_number = dfs_puzzle_solver.processed_states #TODO: Dodać taki atrybut do DFS
+        max_recursion_depth = dfs_puzzle_solver.max_reached_depth
+        elapsed_time = '{:.3f}'.format(round(1000 * (end - start), 3))
 
     elif strategy == 'astr':
         metric = additional_argument

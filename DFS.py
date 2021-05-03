@@ -1,5 +1,7 @@
 class DFS:
     def __init__(self, depth_limit) -> None:
+        self.processed_states = None
+        self.visited_states = None
         self.max_reached_depth = 0
         self.depth_limit = depth_limit
         self.solution = None
@@ -10,9 +12,8 @@ class DFS:
     # TODO: Dorobić przetworzone stany
 
     def solve(self, root, order):
-        is_solved = False
         self.nodes.append(root)
-        while len(self.nodes) != 0 and is_solved == False:
+        while len(self.nodes) != 0 and not self.is_solved:
             node = self.nodes.pop(-1)  # bierzemy zawsze ostatni dodany element
             self.checked_states = self.checked_states + 1
             if node.is_solved():
@@ -40,7 +41,7 @@ class DFS:
                             newNode = node.move_down()
                             self.nodes.append(newNode)
 
-        if is_solved:
+        if self.is_solved:
             print(self.solution.puzzle)
             print(self.solution.solution)
             print(len(self.solution.solution))  # dlugosc rozwiazania
