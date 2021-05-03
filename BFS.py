@@ -1,67 +1,52 @@
 class BFS:
+    def __init__(self) -> None:
+        super().__init__()
+        self.solution = None
+        self.nodes = []
+        self.explored = set()
+        self.is_solved = False
+
     def solve(self, root, order):
-        nodes = []
-        explored = set()
-        solution = ''
         processed_states = 0
-        is_solved = False
-        nodes.append(root)
-        while len(nodes) != 0 and not is_solved:
-            node = nodes.pop(0)
+        self.nodes.append(root)
+        while len(self.nodes) != 0 and not self.is_solved:
+            node = self.nodes.pop(0)
             for i in range(4):
                 direction = order[i]
                 if direction == 'L':
                     if node.canMoveLeft():
                         new_node = node.moveLeft()
-                        if new_node.isSolved():
-                            is_solved = True
-                            solution = new_node
+                        self.check_if_solved(new_node)
                         puzzle_tuple = self.generate_tuple_from_puzzle(new_node.puzzle)
-                        if puzzle_tuple not in explored:
-                            nodes.append(new_node)
-                            explored.add(puzzle_tuple)
-
+                        self.process_puzzle_tuple(puzzle_tuple, new_node)
                 elif direction == 'R':
                     if node.canMoveRight():
                         new_node = node.moveRight()
-                        if new_node.isSolved():
-                            is_solved = True
-                            solution = new_node
+                        self.check_if_solved(new_node)
                         puzzle_tuple = self.generate_tuple_from_puzzle(new_node.puzzle)
-                        if puzzle_tuple not in explored:
-                            nodes.append(new_node)
-                            explored.add(puzzle_tuple)
+                        self.process_puzzle_tuple(puzzle_tuple, new_node)
 
                 elif direction == 'U':
                     if node.canMoveUp():
                         new_node = node.moveUp()
-                        if new_node.isSolved():
-                            is_solved = True
-                            solution = new_node
+                        self.check_if_solved(new_node)
                         puzzle_tuple = self.generate_tuple_from_puzzle(new_node.puzzle)
-                        if puzzle_tuple not in explored:
-                            nodes.append(new_node)
-                            explored.add(puzzle_tuple)
-
+                        self.process_puzzle_tuple(puzzle_tuple, new_node)
                 else:
                     if node.canMoveDown():
                         new_node = node.moveDown()
-                        if new_node.isSolved():
-                            is_solved = True
-                            solution = new_node
+                        self.check_if_solved(new_node)
                         puzzle_tuple = self.generate_tuple_from_puzzle(new_node.puzzle)
-                        if puzzle_tuple not in explored:
-                            nodes.append(new_node)
-                            explored.add(puzzle_tuple)
+                        self.process_puzzle_tuple(puzzle_tuple, new_node)
+
             processed_states = processed_states + 1
 
-
-        if is_solved:
-            print(solution.puzzle)
-            print(solution.solution)
+        if self.is_solved:
+            print(self.solution.puzzle)
+            print(self.solution.solution)
             print("Przetworzone stany: ", processed_states)
-            print("Odwiedzone stany: ",  processed_states + len(nodes))
-            print(solution.depth)
+            print("Odwiedzone stany: ", processed_states + len(self.nodes))
+            print(self.solution.depth)
         else:
             print("Nie udalo sie znalezc rozwiazania")
 
@@ -73,3 +58,13 @@ class BFS:
                 one_dimensional_list.append(j)
         result_tuple = tuple(one_dimensional_list)
         return result_tuple
+
+    def process_puzzle_tuple(self, puzzle_tuple, node):
+        if puzzle_tuple not in self.explored:
+            self.nodes.append(node)
+            self.explored.add(puzzle_tuple)
+
+    def check_if_solved(self, node):
+        if node.isSolved():
+            self.is_solved = True
+            self.solution = node
