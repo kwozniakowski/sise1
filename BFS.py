@@ -14,27 +14,27 @@ class BFS:
             for i in range(4):
                 direction = order[i]
                 if direction == 'L':
-                    if node.canMoveLeft():
-                        new_node = node.moveLeft()
+                    if node.can_move_left():
+                        new_node = node.move_left()
                         self.check_if_solved(new_node)
                         puzzle_tuple = self.generate_tuple_from_puzzle(new_node.puzzle)
                         self.process_puzzle_tuple(puzzle_tuple, new_node)
                 elif direction == 'R':
-                    if node.canMoveRight():
-                        new_node = node.moveRight()
+                    if node.can_move_right():
+                        new_node = node.move_right()
                         self.check_if_solved(new_node)
                         puzzle_tuple = self.generate_tuple_from_puzzle(new_node.puzzle)
                         self.process_puzzle_tuple(puzzle_tuple, new_node)
 
                 elif direction == 'U':
-                    if node.canMoveUp():
-                        new_node = node.moveUp()
+                    if node.can_move_up():
+                        new_node = node.move_up()
                         self.check_if_solved(new_node)
                         puzzle_tuple = self.generate_tuple_from_puzzle(new_node.puzzle)
                         self.process_puzzle_tuple(puzzle_tuple, new_node)
                 else:
-                    if node.canMoveDown():
-                        new_node = node.moveDown()
+                    if node.can_move_down():
+                        new_node = node.move_down()
                         self.check_if_solved(new_node)
                         puzzle_tuple = self.generate_tuple_from_puzzle(new_node.puzzle)
                         self.process_puzzle_tuple(puzzle_tuple, new_node)
@@ -65,6 +65,6 @@ class BFS:
             self.explored.add(puzzle_tuple)
 
     def check_if_solved(self, node):
-        if node.isSolved():
+        if node.is_solved():
             self.is_solved = True
             self.solution = node

@@ -16,17 +16,17 @@ class AStarNode:
         self.solution = solution
         self.metric = metric
 
-        if (metric == 'Hamming'):
-            self.totalDistance = self.hammingDistance() + self.depth
-        else:
-            self.totalDistance = self.manhattanDistance() + self.depth
+        if metric == 'Hamming':
+            self.totalDistance = self.hamming_distance() + self.depth
+        elif metric == 'Manhattan':
+            self.totalDistance = self.manhattan_distance() + self.depth
 
         if len(solution) == 0:
             self.previousOperator = None
         else:
             self.previousOperator = solution[-1]
 
-    def isSolved(self):
+    def is_solved(self):
         solved = True
         previous = self.puzzle[0][0]
         for i in range(0, self.rows):
@@ -41,7 +41,7 @@ class AStarNode:
                 previous = element
         return solved
 
-    def moveLeft(self):
+    def move_left(self):
         newPuzzle = copy.deepcopy(self.puzzle)
         buffer = newPuzzle[self.YZero][self.XZero - 1]
         newPuzzle[self.YZero][self.XZero - 1] = 0
@@ -49,7 +49,7 @@ class AStarNode:
         newNode = AStarNode(newPuzzle, self.depth + 1, self.solution + 'L', self.metric, self.cols, self.rows)
         return newNode
 
-    def moveRight(self):
+    def move_right(self):
         newPuzzle = copy.deepcopy(self.puzzle)
         buffer = newPuzzle[self.YZero][self.XZero + 1]
         newPuzzle[self.YZero][self.XZero + 1] = 0
@@ -57,7 +57,7 @@ class AStarNode:
         newNode = AStarNode(newPuzzle, self.depth + 1, self.solution + 'R', self.metric, self.cols, self.rows)
         return newNode
 
-    def moveUp(self):
+    def move_up(self):
         newPuzzle = copy.deepcopy(self.puzzle)
         buffer = newPuzzle[self.YZero - 1][self.XZero]
         newPuzzle[self.YZero - 1][self.XZero] = 0
@@ -65,7 +65,7 @@ class AStarNode:
         newNode = AStarNode(newPuzzle, self.depth + 1, self.solution + 'U', self.metric, self.cols, self.rows)
         return newNode
 
-    def moveDown(self):
+    def move_down(self):
         newPuzzle = copy.deepcopy(self.puzzle)
         buffer = newPuzzle[self.YZero + 1][self.XZero]
         newPuzzle[self.YZero + 1][self.XZero] = 0
@@ -73,31 +73,31 @@ class AStarNode:
         newNode = AStarNode(newPuzzle, self.depth + 1, self.solution + 'D', self.metric, self.cols, self.rows)
         return newNode
 
-    def canMoveLeft(self):
+    def can_move_left(self):
         if self.XZero != 0 and self.previousOperator != 'R':
             return True
         else:
             return False
 
-    def canMoveRight(self):
+    def can_move_right(self):
         if self.XZero < self.cols - 1 and self.previousOperator != 'L':
             return True
         else:
             return False
 
-    def canMoveUp(self):
+    def can_move_up(self):
         if self.YZero != 0 and self.previousOperator != 'D':
             return True
         else:
             return False
 
-    def canMoveDown(self):
+    def can_move_down(self):
         if self.YZero < self.rows - 1 and self.previousOperator != 'U':
             return True
         else:
             return False
 
-    def manhattanDistance(self):
+    def manhattan_distance(self):
         distance = 0
         for i in range(0, self.rows):
             for j in range(0, self.cols):
@@ -108,7 +108,7 @@ class AStarNode:
                     distance = distance + abs(i - vertical) + abs(j - horizontal)
         return distance
 
-    def hammingDistance(self):
+    def hamming_distance(self):
         distance = 0
         for i in range(0, self.rows):
             for j in range(0, self.cols):

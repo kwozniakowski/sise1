@@ -11,27 +11,27 @@ class DFS :
         while len(nodes) != 0 and isSolved == False:
             node = nodes.pop(-1) #bierzemy zawsze ostatni dodany element
             checkedStates = checkedStates + 1
-            if node.isSolved():
+            if node.is_solved():
                 isSolved = True
                 solution = node
             if node.depth < MAX_DEPTH:
                 for i in range(0, 4):
                     direction = order[i]
                     if direction == 'L':
-                        if node.canMoveLeft():
-                            newNode = node.moveLeft()
+                        if node.can_move_left():
+                            newNode = node.move_left()
                             nodes.append(newNode)
                     if direction == 'R':
-                        if node.canMoveRight():
-                            newNode = node.moveRight()
+                        if node.can_move_right():
+                            newNode = node.move_right()
                             nodes.append(newNode)
                     if direction == 'U':
-                        if node.canMoveUp():
-                            newNode = node.moveUp()
+                        if node.can_move_up():
+                            newNode = node.move_up()
                             nodes.append(newNode)
                     if direction == 'D':
-                        if node.canMoveDown():
-                            newNode = node.moveDown()
+                        if node.can_move_down():
+                            newNode = node.move_down()
                             nodes.append(newNode)
         if isSolved :
             print(solution.puzzle)

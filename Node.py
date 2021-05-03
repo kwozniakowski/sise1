@@ -18,7 +18,7 @@ class Node:
         else:
             self.previousOperator = solution[-1]
 
-    def isSolved(self):
+    def is_solved(self):
         solved = True
         previous = self.puzzle[0][0]
         for i in range(0, self.rows):
@@ -33,16 +33,16 @@ class Node:
                 previous = element
         return solved
 
-        """solved = True
-        n = self.puzzle[0][0]
-        for row in self.puzzle:
-            for number in row:
-                if not number >= n:
-                    solved = False
-                n = number
-        return solved"""
+        # solved = True
+        # n = self.puzzle[0][0]
+        # for row in self.puzzle:
+        #     for number in row:
+        #         if not number >= n:
+        #             solved = False
+        #         n = number
+        # return solved
 
-    def moveLeft(self):
+    def move_left(self):
         newPuzzle = copy.deepcopy(self.puzzle)
         buffer = newPuzzle[self.YZero][self.XZero - 1]
         newPuzzle[self.YZero][self.XZero - 1] = 0
@@ -50,7 +50,7 @@ class Node:
         newNode = Node(newPuzzle, self.depth + 1, self.solution + 'L', self.cols, self.rows)
         return newNode
 
-    def moveRight(self):
+    def move_right(self):
         newPuzzle = copy.deepcopy(self.puzzle)
         buffer = newPuzzle[self.YZero][self.XZero + 1]
         newPuzzle[self.YZero][self.XZero + 1] = 0
@@ -58,7 +58,7 @@ class Node:
         newNode = Node(newPuzzle, self.depth + 1, self.solution + 'R', self.cols, self.rows)
         return newNode
 
-    def moveUp(self):
+    def move_up(self):
         newPuzzle = copy.deepcopy(self.puzzle)
         buffer = newPuzzle[self.YZero - 1][self.XZero]
         newPuzzle[self.YZero - 1][self.XZero] = 0
@@ -66,7 +66,7 @@ class Node:
         newNode = Node(newPuzzle, self.depth + 1, self.solution + 'U', self.cols, self.rows)
         return newNode
 
-    def moveDown(self):
+    def move_down(self):
         newPuzzle = copy.deepcopy(self.puzzle)
         buffer = newPuzzle[self.YZero + 1][self.XZero]
         newPuzzle[self.YZero + 1][self.XZero] = 0
@@ -74,25 +74,25 @@ class Node:
         newNode = Node(newPuzzle, self.depth + 1, self.solution + 'D', self.cols, self.rows)
         return newNode
 
-    def canMoveLeft(self):
+    def can_move_left(self):
         if self.XZero != 0 and self.previousOperator != 'R':
             return True
         else:
             return False
 
-    def canMoveRight(self):
+    def can_move_right(self):
         if self.XZero < self.cols - 1 and self.previousOperator != 'L':
             return True
         else:
             return False
 
-    def canMoveUp(self):
+    def can_move_up(self):
         if self.YZero != 0 and self.previousOperator != 'D':
             return True
         else:
             return False
 
-    def canMoveDown(self):
+    def can_move_down(self):
         if self.YZero < self.rows - 1 and self.previousOperator != 'U':
             return True
         else:
