@@ -64,8 +64,8 @@ if __name__ == '__main__':
         is_solved = dfs_puzzle_solver.is_solved
         solution_string = dfs_puzzle_solver.solution.solution
         solution_length = len(solution_string)
-        visited_states_number = dfs_puzzle_solver.visited_states #TODO: Dodać taki atrybut do DFS
-        processed_states_number = dfs_puzzle_solver.processed_states #TODO: Dodać taki atrybut do DFS
+        visited_states_number = dfs_puzzle_solver.visited_states
+        processed_states_number = dfs_puzzle_solver.processed_states
         max_recursion_depth = dfs_puzzle_solver.max_reached_depth
         elapsed_time = '{:.3f}'.format(round(1000 * (end - start), 3))
 

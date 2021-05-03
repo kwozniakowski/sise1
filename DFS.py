@@ -7,15 +7,15 @@ class DFS:
         self.solution = None
         self.is_solved = False
         self.nodes = []
-        self.checked_states = 0
+        self.visited_states = 0
 
-    # TODO: Dorobić przetworzone stany
+    # TODO: Dorobić przetworzone stany jako self.processed_states
 
     def solve(self, root, order):
         self.nodes.append(root)
         while len(self.nodes) != 0 and not self.is_solved:
             node = self.nodes.pop(-1)  # bierzemy zawsze ostatni dodany element
-            self.checked_states = self.checked_states + 1
+            self.visited_states = self.visited_states + 1
             if node.is_solved():
                 self.is_solved = True
                 self.solution = node
@@ -45,6 +45,6 @@ class DFS:
             print(self.solution.puzzle)
             print(self.solution.solution)
             print(len(self.solution.solution))  # dlugosc rozwiazania
-            print("Odwiedzone stany: ", self.checked_states)
+            print("Odwiedzone stany: ", self.visited_states)
         else:
             print("Nie udalo sie znalezc rozwiazania")
