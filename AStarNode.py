@@ -10,21 +10,21 @@ class AStarNode:
         for i in range(0, len(puzzle)):
             for j in range(0, len(puzzle[i])):
                 if puzzle[i][j] == 0:
-                    self.XZero = j
-                    self.YZero = i
+                    self.x_zero = j
+                    self.y_zero = i
         self.depth = depth
         self.solution = solution
         self.metric = metric
 
-        if metric == 'Hamming':
-            self.totalDistance = self.hamming_distance() + self.depth
-        elif metric == 'Manhattan':
-            self.totalDistance = self.manhattan_distance() + self.depth
+        if metric == 'hamm':
+            self.total_distance = self.hamming_distance() + self.depth
+        elif metric == 'manh':
+            self.total_distance = self.manhattan_distance() + self.depth
 
         if len(solution) == 0:
-            self.previousOperator = None
+            self.previous_operator = None
         else:
-            self.previousOperator = solution[-1]
+            self.previous_operator = solution[-1]
 
     def is_solved(self):
         solved = True
@@ -42,57 +42,57 @@ class AStarNode:
         return solved
 
     def move_left(self):
-        newPuzzle = copy.deepcopy(self.puzzle)
-        buffer = newPuzzle[self.YZero][self.XZero - 1]
-        newPuzzle[self.YZero][self.XZero - 1] = 0
-        newPuzzle[self.YZero][self.XZero] = buffer
-        newNode = AStarNode(newPuzzle, self.depth + 1, self.solution + 'L', self.metric, self.cols, self.rows)
-        return newNode
+        new_puzzle = copy.deepcopy(self.puzzle)
+        buffer = new_puzzle[self.y_zero][self.x_zero - 1]
+        new_puzzle[self.y_zero][self.x_zero - 1] = 0
+        new_puzzle[self.y_zero][self.x_zero] = buffer
+        new_node = AStarNode(new_puzzle, self.depth + 1, self.solution + 'L', self.metric, self.cols, self.rows)
+        return new_node
 
     def move_right(self):
-        newPuzzle = copy.deepcopy(self.puzzle)
-        buffer = newPuzzle[self.YZero][self.XZero + 1]
-        newPuzzle[self.YZero][self.XZero + 1] = 0
-        newPuzzle[self.YZero][self.XZero] = buffer
-        newNode = AStarNode(newPuzzle, self.depth + 1, self.solution + 'R', self.metric, self.cols, self.rows)
-        return newNode
+        new_puzzle = copy.deepcopy(self.puzzle)
+        buffer = new_puzzle[self.y_zero][self.x_zero + 1]
+        new_puzzle[self.y_zero][self.x_zero + 1] = 0
+        new_puzzle[self.y_zero][self.x_zero] = buffer
+        new_node = AStarNode(new_puzzle, self.depth + 1, self.solution + 'R', self.metric, self.cols, self.rows)
+        return new_node
 
     def move_up(self):
-        newPuzzle = copy.deepcopy(self.puzzle)
-        buffer = newPuzzle[self.YZero - 1][self.XZero]
-        newPuzzle[self.YZero - 1][self.XZero] = 0
-        newPuzzle[self.YZero][self.XZero] = buffer
-        newNode = AStarNode(newPuzzle, self.depth + 1, self.solution + 'U', self.metric, self.cols, self.rows)
-        return newNode
+        new_puzzle = copy.deepcopy(self.puzzle)
+        buffer = new_puzzle[self.y_zero - 1][self.x_zero]
+        new_puzzle[self.y_zero - 1][self.x_zero] = 0
+        new_puzzle[self.y_zero][self.x_zero] = buffer
+        new_node = AStarNode(new_puzzle, self.depth + 1, self.solution + 'U', self.metric, self.cols, self.rows)
+        return new_node
 
     def move_down(self):
         newPuzzle = copy.deepcopy(self.puzzle)
-        buffer = newPuzzle[self.YZero + 1][self.XZero]
-        newPuzzle[self.YZero + 1][self.XZero] = 0
-        newPuzzle[self.YZero][self.XZero] = buffer
+        buffer = newPuzzle[self.y_zero + 1][self.x_zero]
+        newPuzzle[self.y_zero + 1][self.x_zero] = 0
+        newPuzzle[self.y_zero][self.x_zero] = buffer
         newNode = AStarNode(newPuzzle, self.depth + 1, self.solution + 'D', self.metric, self.cols, self.rows)
         return newNode
 
     def can_move_left(self):
-        if self.XZero != 0 and self.previousOperator != 'R':
+        if self.x_zero != 0 and self.previous_operator != 'R':
             return True
         else:
             return False
 
     def can_move_right(self):
-        if self.XZero < self.cols - 1 and self.previousOperator != 'L':
+        if self.x_zero < self.cols - 1 and self.previous_operator != 'L':
             return True
         else:
             return False
 
     def can_move_up(self):
-        if self.YZero != 0 and self.previousOperator != 'D':
+        if self.y_zero != 0 and self.previous_operator != 'D':
             return True
         else:
             return False
 
     def can_move_down(self):
-        if self.YZero < self.rows - 1 and self.previousOperator != 'U':
+        if self.y_zero < self.rows - 1 and self.previous_operator != 'U':
             return True
         else:
             return False

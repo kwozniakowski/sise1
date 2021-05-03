@@ -1,13 +1,14 @@
 class BFS:
     def __init__(self) -> None:
-        super().__init__()
         self.solution = None
         self.nodes = []
         self.explored = set()
         self.is_solved = False
+        self.processed_states = 0
+        self.visited_states = 0
+        self.max_reached_depth = 0
 
     def solve(self, root, order):
-        processed_states = 0
         self.nodes.append(root)
         while len(self.nodes) != 0 and not self.is_solved:
             node = self.nodes.pop(0)
@@ -39,13 +40,15 @@ class BFS:
                         puzzle_tuple = self.generate_tuple_from_puzzle(new_node.puzzle)
                         self.process_puzzle_tuple(puzzle_tuple, new_node)
 
-            processed_states = processed_states + 1
+            self.processed_states = self.processed_states + 1
 
         if self.is_solved:
             print(self.solution.puzzle)
             print(self.solution.solution)
-            print("Przetworzone stany: ", processed_states)
-            print("Odwiedzone stany: ", processed_states + len(self.nodes))
+            print("Przetworzone stany: ", self.processed_states)
+            self.visited_states = self.processed_states + len(self.nodes)
+            print("Odwiedzone stany: ", self.processed_states + len(self.nodes))
+            self.max_reached_depth = self.solution.depth
             print(self.solution.depth)
         else:
             print("Nie udalo sie znalezc rozwiazania")

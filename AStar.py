@@ -33,4 +33,4 @@ class AStar :
             print("Nie udalo sie znalezc rozwiazania")
 
     def getTotalDistance(self, node):
-        return node.totalDistance
+        return node.total_distance

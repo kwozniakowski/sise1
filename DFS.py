@@ -1,42 +1,49 @@
-MAX_DEPTH = 9
-class DFS :
-    moves = 0
+class DFS:
+    def __init__(self, depth_limit) -> None:
+        self.max_reached_depth = 0
+        self.depth_limit = depth_limit
+        self.solution = None
+        self.is_solved = False
+        self.nodes = []
+        self.checked_states = 0
 
-    def solve(self,root,order):
-        nodes = []
-        checkedStates = 0
-        solution = None
-        isSolved = False
-        nodes.append(root)
-        while len(nodes) != 0 and isSolved == False:
-            node = nodes.pop(-1) #bierzemy zawsze ostatni dodany element
-            checkedStates = checkedStates + 1
+    # TODO: Dorobić przetworzone stany
+
+    def solve(self, root, order):
+        is_solved = False
+        self.nodes.append(root)
+        while len(self.nodes) != 0 and is_solved == False:
+            node = self.nodes.pop(-1)  # bierzemy zawsze ostatni dodany element
+            self.checked_states = self.checked_states + 1
             if node.is_solved():
-                isSolved = True
-                solution = node
-            if node.depth < MAX_DEPTH:
+                self.is_solved = True
+                self.solution = node
+            if self.max_reached_depth < node.depth:
+                self.max_reached_depth = node.depth
+            if node.depth < self.depth_limit:
                 for i in range(0, 4):
                     direction = order[i]
                     if direction == 'L':
                         if node.can_move_left():
                             newNode = node.move_left()
-                            nodes.append(newNode)
+                            self.nodes.append(newNode)
                     if direction == 'R':
                         if node.can_move_right():
                             newNode = node.move_right()
-                            nodes.append(newNode)
+                            self.nodes.append(newNode)
                     if direction == 'U':
                         if node.can_move_up():
                             newNode = node.move_up()
-                            nodes.append(newNode)
+                            self.nodes.append(newNode)
                     if direction == 'D':
                         if node.can_move_down():
                             newNode = node.move_down()
-                            nodes.append(newNode)
-        if isSolved :
-            print(solution.puzzle)
-            print(solution.solution)
-            print(len(solution.solution)) # dlugosc rozwiazania
-            print("Odwiedzone stany: ", checkedStates)
-        else :
+                            self.nodes.append(newNode)
+
+        if is_solved:
+            print(self.solution.puzzle)
+            print(self.solution.solution)
+            print(len(self.solution.solution))  # dlugosc rozwiazania
+            print("Odwiedzone stany: ", self.checked_states)
+        else:
             print("Nie udalo sie znalezc rozwiazania")
