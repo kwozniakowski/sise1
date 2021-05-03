@@ -3,53 +3,64 @@ class BFS:
         nodes = []
         explored = set()
         solution = ''
-        checkedStates = 0
-        isSolved = False
+        processed_states = 0
+        is_solved = False
         nodes.append(root)
-        while len(nodes) != 0 and not isSolved:
+        while len(nodes) != 0 and not is_solved:
             node = nodes.pop(0)
             for i in range(4):
                 direction = order[i]
                 if direction == 'L':
                     if node.canMoveLeft():
-                        newNode = node.moveLeft()
-                        puzzle_tuple = self.generate_tuple_from_puzzle(newNode.puzzle)
+                        new_node = node.moveLeft()
+                        if new_node.isSolved():
+                            is_solved = True
+                            solution = new_node
+                        puzzle_tuple = self.generate_tuple_from_puzzle(new_node.puzzle)
                         if puzzle_tuple not in explored:
-                            nodes.append(newNode)
+                            nodes.append(new_node)
                             explored.add(puzzle_tuple)
 
                 elif direction == 'R':
                     if node.canMoveRight():
-                        newNode = node.moveRight()
-                        puzzle_tuple = self.generate_tuple_from_puzzle(newNode.puzzle)
+                        new_node = node.moveRight()
+                        if new_node.isSolved():
+                            is_solved = True
+                            solution = new_node
+                        puzzle_tuple = self.generate_tuple_from_puzzle(new_node.puzzle)
                         if puzzle_tuple not in explored:
-                            nodes.append(newNode)
-                        explored.add(puzzle_tuple)
+                            nodes.append(new_node)
+                            explored.add(puzzle_tuple)
 
                 elif direction == 'U':
                     if node.canMoveUp():
-                        newNode = node.moveUp()
-                        puzzle_tuple = self.generate_tuple_from_puzzle(newNode.puzzle)
+                        new_node = node.moveUp()
+                        if new_node.isSolved():
+                            is_solved = True
+                            solution = new_node
+                        puzzle_tuple = self.generate_tuple_from_puzzle(new_node.puzzle)
                         if puzzle_tuple not in explored:
-                            nodes.append(newNode)
+                            nodes.append(new_node)
                             explored.add(puzzle_tuple)
 
                 else:
                     if node.canMoveDown():
-                        newNode = node.moveDown()
-                        puzzle_tuple = self.generate_tuple_from_puzzle(newNode.puzzle)
+                        new_node = node.moveDown()
+                        if new_node.isSolved():
+                            is_solved = True
+                            solution = new_node
+                        puzzle_tuple = self.generate_tuple_from_puzzle(new_node.puzzle)
                         if puzzle_tuple not in explored:
-                            nodes.append(newNode)
+                            nodes.append(new_node)
                             explored.add(puzzle_tuple)
-                if nodes[-1].isSolved():
-                    isSolved = True
-                    solution = nodes[-1]
+            processed_states = processed_states + 1
 
-        if isSolved:
+
+        if is_solved:
             print(solution.puzzle)
             print(solution.solution)
-            print("Przetworzone stany: ", checkedStates)
-            print("Odwiedzone stany: ", checkedStates + len(nodes)) #TODO: tutaj zmienić, żeby odpowiednio wyświetlało wartości
+            print("Przetworzone stany: ", processed_states)
+            print("Odwiedzone stany: ",  processed_states + len(nodes))
             print(solution.depth)
         else:
             print("Nie udalo sie znalezc rozwiazania")

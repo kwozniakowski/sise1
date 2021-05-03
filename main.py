@@ -22,7 +22,7 @@ cols = data[1]
 rows = data[2]
 
 puzzle = array
-order = 'LRUD'
+order = 'URDL'
 
 metric = 'Manhattan'
 root = Node(puzzle, 0,'',cols,rows)
@@ -35,7 +35,7 @@ start = time.time()
 
 bfsPuzzleSolver.solve(root,order)
 #dfsPuzzleSolver.solve(root,order)
-# aStarPuzzleSolver.solve(aStarRoot, metric)
+#aStarPuzzleSolver.solve(aStarRoot, metric)
 
 end = time.time()
 print('Czas to: ', end - start)
