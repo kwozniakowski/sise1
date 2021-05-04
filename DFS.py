@@ -7,12 +7,16 @@ class DFS:
         self.solution = None
         self.is_solved = False
         self.nodes = []
+        self.visited_states = 0
+
+    # TODO: Dorobić przetworzone stany jako self.processed_states
 
     def solve(self, root, order):
         self.nodes.append(root)
         self.processed_states = 0
         while len(self.nodes) != 0 and not self.is_solved:
             node = self.nodes.pop(-1)  # bierzemy zawsze ostatni dodany element
+            self.visited_states = self.visited_states + 1
             if node.is_solved():
                 self.is_solved = True
                 self.solution = node
