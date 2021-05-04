@@ -64,17 +64,25 @@ if __name__ == '__main__':
         is_solved = dfs_puzzle_solver.is_solved
         solution_string = dfs_puzzle_solver.solution.solution
         solution_length = len(solution_string)
-        visited_states_number = dfs_puzzle_solver.visited_states #TODO: Dodać taki atrybut do DFS
-        processed_states_number = dfs_puzzle_solver.processed_states #TODO: Dodać taki atrybut do DFS
+        visited_states_number = dfs_puzzle_solver.visited_states
+        processed_states_number = dfs_puzzle_solver.processed_states
         max_recursion_depth = dfs_puzzle_solver.max_reached_depth
         elapsed_time = '{:.3f}'.format(round(1000 * (end - start), 3))
 
     elif strategy == 'astr':
         metric = additional_argument
-        aStarPuzzleSolver = AStar()
+        a_star_puzzle_solver = AStar(metric)
         aStarRoot = AStarNode(puzzle, 0, '', metric, cols, rows)
-        aStarPuzzleSolver.solve(aStarRoot, metric)
+        a_star_puzzle_solver.solve(aStarRoot)
         end = time.time()
+
+        is_solved = a_star_puzzle_solver.is_solved
+        solution_string = a_star_puzzle_solver.solution.solution
+        solution_length = len(solution_string)
+        visited_states_number = a_star_puzzle_solver.visited_states
+        processed_states_number = a_star_puzzle_solver.processed_states
+        max_recursion_depth = a_star_puzzle_solver.max_reached_depth
+        elapsed_time = '{:.3f}'.format(round(1000 * (end - start), 3))
 
     else:
         print("Wrong strategy")

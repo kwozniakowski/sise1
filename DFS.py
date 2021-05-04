@@ -7,12 +7,10 @@ class DFS:
         self.solution = None
         self.is_solved = False
         self.nodes = []
-        self.checked_states = 0
-
-    # TODO: Dorobić przetworzone stany
 
     def solve(self, root, order):
         self.nodes.append(root)
+        self.processed_states = 0
         while len(self.nodes) != 0 and not self.is_solved:
             node = self.nodes.pop(-1)  # bierzemy zawsze ostatni dodany element
             self.checked_states = self.checked_states + 1
@@ -26,25 +24,35 @@ class DFS:
                     direction = order[i]
                     if direction == 'L':
                         if node.can_move_left():
-                            newNode = node.move_left()
-                            self.nodes.append(newNode)
+                            new_node = node.move_left()
+                            self.check_if_solved(new_node)
+                            self.nodes.append(new_node)
                     if direction == 'R':
                         if node.can_move_right():
-                            newNode = node.move_right()
-                            self.nodes.append(newNode)
+                            new_node = node.move_right()
+                            self.check_if_solved(new_node)
+                            self.nodes.append(new_node)
                     if direction == 'U':
                         if node.can_move_up():
-                            newNode = node.move_up()
-                            self.nodes.append(newNode)
+                            new_node = node.move_up()
+                            self.check_if_solved(new_node)
+                            self.nodes.append(new_node)
                     if direction == 'D':
                         if node.can_move_down():
-                            newNode = node.move_down()
-                            self.nodes.append(newNode)
-
+                            new_node = node.move_down()
+                            self.check_if_solved(new_node)
+                            self.nodes.append(new_node)
+            self.processed_states = self.processed_states + 1
+        self.visited_states = self.processed_states + len(self.nodes)
         if self.is_solved:
             print(self.solution.puzzle)
             print(self.solution.solution)
             print(len(self.solution.solution))  # dlugosc rozwiazania
-            print("Odwiedzone stany: ", self.checked_states)
+            print("Odwiedzone stany: ", self.processed_states)
         else:
             print("Nie udalo sie znalezc rozwiazania")
+
+    def check_if_solved(self, node):
+        if node.is_solved():
+            self.is_solved = True
+            self.solution = node

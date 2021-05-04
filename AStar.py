@@ -1,36 +1,58 @@
 class AStar :
-    def solve(self,root,metric):
-        nodes = []
-        checkedStates = 0
+    def __init__(self, metric) -> None:
+        self.processed_states = None
+        self.visited_states = None
+        self.max_reached_depth = 0
+        self.solution = None
+        self.is_solved = False
+        self.nodes = []
+        self.metric = metric
+
+    def solve(self,root):
+        self.processed_states = 0
         solution = None
-        isSolved = False
-        nodes.append(root)
-        while len(nodes) != 0 and isSolved == False:
-            nodes.sort(key=self.getTotalDistance)
-            node = nodes.pop(0)
-            checkedStates += 1
+        self.nodes.append(root)
+        while len(self.nodes) != 0 and self.is_solved == False:
+            self.nodes.sort(key=self.getTotalDistance)
+            node = self.nodes.pop(0)
+            self.processed_states += 1
+
+            if self.max_reached_depth < node.depth:
+                self.max_reached_depth = node.depth
+
             if node.is_solved():
-                isSolved = True
+                self.is_solved = True
                 solution = node
             if node.can_move_left():
-                newNode = node.move_left()
-                nodes.append(newNode)
+                new_node = node.move_left()
+                self.check_if_solved(new_node)
+                self.nodes.append(new_node)
             if node.can_move_right():
-                newNode = node.move_right()
-                nodes.append(newNode)
+                new_node = node.move_right()
+                self.check_if_solved(new_node)
+                self.nodes.append(new_node)
             if node.can_move_up():
-                newNode = node.move_up()
-                nodes.append(newNode)
+                new_node = node.move_up()
+                self.check_if_solved(new_node)
+                self.nodes.append(new_node)
             if node.can_move_down():
-                newNode = node.move_down()
-                nodes.append(newNode)
-        if isSolved :
+                new_node = node.move_down()
+                self.check_if_solved(new_node)
+                self.nodes.append(new_node)
+
+        self.visited_states = self.processed_states + len(self.nodes)
+        if self.is_solved :
             print(solution.puzzle)
             print(solution.solution)
-            print("Odwiedzone stany: ", checkedStates)
+            print("Odwiedzone stany: ", self.processed_states)
             print("Głębokość rozwiazania: ", solution.depth)
         else :
             print("Nie udalo sie znalezc rozwiazania")
 
     def getTotalDistance(self, node):
         return node.total_distance
+
+    def check_if_solved(self, node):
+        if node.is_solved():
+            self.is_solved = True
+            self.solution = node
