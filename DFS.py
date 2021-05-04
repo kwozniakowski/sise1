@@ -13,7 +13,6 @@ class DFS:
         self.processed_states = 0
         while len(self.nodes) != 0 and not self.is_solved:
             node = self.nodes.pop(-1)  # bierzemy zawsze ostatni dodany element
-            self.checked_states = self.checked_states + 1
             if node.is_solved():
                 self.is_solved = True
                 self.solution = node
