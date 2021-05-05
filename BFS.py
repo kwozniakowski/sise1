@@ -43,15 +43,8 @@ class BFS:
             self.processed_states = self.processed_states + 1
 
         if self.is_solved:
-            print(self.solution.puzzle)
-            print(self.solution.solution)
-            print("Przetworzone stany: ", self.processed_states)
             self.visited_states = self.processed_states + len(self.nodes)
-            print("Odwiedzone stany: ", self.processed_states + len(self.nodes))
             self.max_reached_depth = self.solution.depth
-            print(self.solution.depth)
-        else:
-            print("Nie udalo sie znalezc rozwiazania")
 
     @staticmethod
     def generate_tuple_from_puzzle(puzzle):

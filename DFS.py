@@ -47,13 +47,6 @@ class DFS:
                             self.nodes.append(new_node)
             self.processed_states = self.processed_states + 1
         self.visited_states = self.processed_states + len(self.nodes)
-        if self.is_solved:
-            print(self.solution.puzzle)
-            print(self.solution.solution)
-            print(len(self.solution.solution))  # dlugosc rozwiazania
-            print("Odwiedzone stany: ", self.processed_states)
-        else:
-            print("Nie udalo sie znalezc rozwiazania")
 
     def check_if_solved(self, node):
         if node.is_solved():

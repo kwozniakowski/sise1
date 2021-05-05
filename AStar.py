@@ -1,4 +1,4 @@
-class AStar :
+class AStar:
     def __init__(self, metric) -> None:
         self.processed_states = None
         self.visited_states = None
@@ -8,12 +8,11 @@ class AStar :
         self.nodes = []
         self.metric = metric
 
-    def solve(self,root):
+    def solve(self, root):
         self.processed_states = 0
-        solution = None
         self.nodes.append(root)
-        while len(self.nodes) != 0 and self.is_solved == False:
-            self.nodes.sort(key=self.getTotalDistance)
+        while len(self.nodes) != 0 and not self.is_solved:
+            self.nodes.sort(key=self.get_total_distance)
             node = self.nodes.pop(0)
             self.processed_states += 1
 
@@ -22,7 +21,7 @@ class AStar :
 
             if node.is_solved():
                 self.is_solved = True
-                solution = node
+                self.solution = node
             if node.can_move_left():
                 new_node = node.move_left()
                 self.check_if_solved(new_node)
@@ -41,15 +40,8 @@ class AStar :
                 self.nodes.append(new_node)
 
         self.visited_states = self.processed_states + len(self.nodes)
-        if self.is_solved :
-            print(solution.puzzle)
-            print(solution.solution)
-            print("Odwiedzone stany: ", self.processed_states)
-            print("Głębokość rozwiazania: ", solution.depth)
-        else :
-            print("Nie udalo sie znalezc rozwiazania")
 
-    def getTotalDistance(self, node):
+    def get_total_distance(self, node):
         return node.total_distance
 
     def check_if_solved(self, node):
