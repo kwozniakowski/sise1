@@ -20,9 +20,9 @@ def read_file(name):
 if __name__ == '__main__':
     strategy = sys.argv[1]
     additional_argument = sys.argv[2]
-    input_file_name = sys.argv[3]
-    output_solution_file_name = sys.argv[4]
-    output_stats_file_name = sys.argv[5]
+    input_file_name = "Puzzles/" + sys.argv[3]
+    output_solution_file_name = "Solutions/" + sys.argv[4]
+    output_stats_file_name = "Stats/" + sys.argv[5]
 
     data = read_file(input_file_name)
     puzzle = data[0]
