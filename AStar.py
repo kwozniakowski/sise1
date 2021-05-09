@@ -28,6 +28,11 @@ class AStar:
                 self.check_if_solved(new_node)
                 self.determine_max_depth(new_node)
                 self.nodes.append(new_node)
+            if node.can_move_down():
+                new_node = node.move_down()
+                self.check_if_solved(new_node)
+                self.determine_max_depth(new_node)
+                self.nodes.append(new_node)
             if node.can_move_right():
                 new_node = node.move_right()
                 self.check_if_solved(new_node)
@@ -38,11 +43,7 @@ class AStar:
                 self.check_if_solved(new_node)
                 self.determine_max_depth(new_node)
                 self.nodes.append(new_node)
-            if node.can_move_down():
-                new_node = node.move_down()
-                self.check_if_solved(new_node)
-                self.determine_max_depth(new_node)
-                self.nodes.append(new_node)
+            
 
         self.visited_states = self.processed_states + len(self.nodes)
 
