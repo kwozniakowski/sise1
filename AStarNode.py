@@ -103,8 +103,8 @@ class AStarNode:
             for j in range(0, self.cols):
                 number = self.puzzle[i][j]
                 if number != 0:
-                    vertical = math.floor(number / self.cols)
-                    horizontal = number % self.cols
+                    vertical = math.floor(( number - 1 ) / self.cols )
+                    horizontal = number % self.cols - 1
                     distance = distance + abs(i - vertical) + abs(j - horizontal)
         return distance
 
@@ -114,6 +114,6 @@ class AStarNode:
             for j in range(0, self.cols):
                 number = self.puzzle[i][j]
                 if number != 0:
-                    if number != i * self.cols + j:
+                    if number != i * self.cols + j + 1:
                         distance = distance + 1
         return distance
