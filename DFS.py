@@ -23,7 +23,7 @@ class DFS:
             if self.max_reached_depth < node.depth:
                 self.max_reached_depth = node.depth
             if node.depth < self.depth_limit:
-                for i in range(0, 4):
+                for i in range(4, 0):
                     direction = order[i]
                     if direction == 'L':
                         if node.can_move_left():
